@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Val 14</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgba(255, 192, 203, 0.842);
+        }
+
+        img {
+            margin: 20px 0;
+            max-width: 40%;
+            width: 300px;
+            height: 300px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            width: 250px;
+            /* Initial width */
+            transition: width 0.3s ease;
+            /* Smooth resizing */
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff69b4;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-grow: 1;
+            /* Ensures buttons stay in one row */
+        }
+
+        button:hover {
+            background-color: #ff1493;
+        }
+    </style>
+    <script src="jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let btcount = 0;
+            let growthAmount = 20; // How much the "Yes" button grows each time
+
+            $("#Yes").click(function () {
+                $("h1").text("Meet me at the hotel room!");
+                $("#vimage").attr("src", "milk and mocha.jpg");
+            });
+
+            $("#No").click(function () {
+                $("h1").text("Are you sure?");
+
+                let cout = 5;// to count the no button got click
+
+                btcount++;
+                if (btcount == cout) {
+                    $("#No").hide();
+                    $("h1").text("Oops There is no button!");
+                    
+                } else {
+
+                    let currentWidth = $("#Yes").width();
+                    let currentHeight = $("#Yes").height();
+                    let fontsize = parseInt($("#Yes").css("font-size")); // Get current font size as a number
+
+
+
+                    let containerWidth = $(".button-container").width();
+
+                    // Increase "Yes" button size
+                    $("#Yes").width(currentWidth + growthAmount);
+                    $("#Yes").height(currentHeight + (growthAmount / 2));
+                    $("#Yes").css("font-size", fontsize + 5 + "px"); // Increase font size
+
+
+                    // Adjust container size so buttons stay in one row
+                    $(".button-container").width(containerWidth + growthAmount);
+
+                    // Shrink "No" button but keep it visible
+                    let noCurrentWidth = $("#No").width();
+                    let noCurrentHeight = $("#No").height();
+
+                    if (noCurrentWidth > 40 && noCurrentHeight > 20) {
+                        $("#No").width(noCurrentWidth - (growthAmount / 2));
+                        $("#No").height(noCurrentHeight - (growthAmount / 4));
+                    }
+                }
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Do you want to go out with me?</h1>
+    <img src="mam.jpg" alt="Image" id="vimage">
+    <div class="button-container">
+        <button id="Yes">Yes</button>
+        <button id="No">No</button>
+    </div>
+</body>
+
+</html>
